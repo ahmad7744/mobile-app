@@ -1,58 +1,23 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, { useState } from 'react';
+import LoginScreen from './LoginScreen';
+import Home from './secreens/Home';
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 32,
+  const handleLogin = () => {
+    setIsLoggedIn(true);
   };
 
-  const textStyle = {
-    fontSize: 32,
-    
+  const handleLogout = () => {
+    setIsLoggedIn(false);
   };
 
   return (
-    <SafeAreaView style={styles.flex}>
-      <Text style={styles.bigBlue}>Hello World</Text>
-    </SafeAreaView>
+    <>
+      {isLoggedIn ? <Home navigation={{ navigate: handleLogout }} /> : <LoginScreen navigation={{ navigate: handleLogin }} />}
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-  },
-  bigBlue: {
-    color: 'blue',
-    fontWeight: 'bold',
-    fontSize: 60,
-  },
-  red: {
-    color: 'red',
-  },
-  flex: {
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'center',
-    height:'100%',
-    width:'100%',
-    
-  }
-});
 
 export default App;
